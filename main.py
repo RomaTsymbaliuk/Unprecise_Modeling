@@ -3,9 +3,13 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 # A = {<u(x), x>}
+
+import math
+
 A = []
 B = []
 V = 12
+T = 0
 A_flag = 1
 B_flag = 2
 
@@ -109,6 +113,62 @@ class unpresice_set_U:
                 dvsn_s.append(0)
         return dvsn_s
 
+def add_triangle_unprecise_numbers(a, b):
+    a1 = min(a[0] + b[0], a[0] + b[2], a[2] + b[0], a[2] + b[2])
+    b1 = a[1] + b[1]
+    c1 = max(a[0] + b[0], a[0] + b[2], a[2] + b[0], a[2] + b[2])
+    return [a1, b1, c1]
+
+def minus_triangle_unprecise_numbers(a, b):
+    a1 = min(a[0] - b[0], a[0] - b[2], a[2] - b[0], a[2] - b[2])
+    b1 = a[1] - b[1]
+    c1 = max(a[0] - b[0], a[0] - b[2], a[2] - b[0], a[2] - b[2])
+    return [a1, b1, c1]
+
+def multiply_triangle_unprecise_numbers(a, b):
+    a1 = min(a[0] * b[0], a[0] * b[2], a[2] * b[0], a[2] * b[2])
+    b1 = a[1] * b[1]
+    c1 = max(a[0] * b[0], a[0] * b[2], a[2] * b[0], a[2] * b[2])
+    return [a1, b1, c1]
+
+def division_triangle_unprecise_numbers(a, b):
+    a1 = min(a[0] / b[0], a[0] / b[2], a[2] / b[0], a[2] / b[2])
+    b1 = a[1] / b[1]
+    c1 = max(a[0] / b[0], a[0] / b[2], a[2] / b[0], a[2] / b[2])
+    return [round(a1, 2), round(b1, 2), round(c1, 2)]
+
+def add_trapeze_unprecise_numbers(a, b):
+    a1 = a[0] + b[0]
+    b1 = a[1] + b[1]
+    c1 = a[2] + b[2]
+    d1 = a[3] + b[3]
+
+    return [a1, b1, c1, d1]
+
+def substract_trapeze_unprecise_numbers(a, b):
+    a1 = a[0] - b[1] - b[3] + b[2]
+    b1 = a[1] - b[1]
+    c1 = a[2] - b[2]
+    d1 = a[3] + b[1] - b[0] - b[2]
+
+    return [a1, b1, c1, d1]
+
+def multiply_trapeze_unprecise_numbers(a, b):
+    a1 = a[1] * b[0] - a[1] * b[1] + a[0] * b[1]
+    b1 = a[1] * b[1]
+    c1 = a[2] * b[2]
+    d1 = a[2] * b[3] - a[2] * b[2] + a[3] * b[2]
+
+    return [a1, b1, c1, d1]
+
+def division_trapeze_unprecise_numbers(a, b):
+    a1 = (a[1] * b[2] - a[1] * b[3] + a[0] * b[2]) / math.pow(b[2], 2)
+    b1 = a[1] / b[2]
+    c1 = a[2] / b[1]
+    d1 = (a[2] * b[1] - a[2] * b[0] + a[3] * b[1]) / math.pow(b[1], 2)
+
+    return [a1, b1, c1, d1]
+
 #Create set A and B
 A = unpresice_set_U(A_flag)
 B = unpresice_set_U(B_flag)
@@ -152,3 +212,35 @@ mltpl_s = A.multiply_set(B)
 print(mltpl_s)
 dvsn_s = A.division_set(B)
 print(dvsn_s)
+
+#Multiplication of triangle numbers
+a = [V - T - 1, V, V + T + 1]
+b = [2 * V - T, 2 * V + 1, 2 * V + 5]
+
+c = add_triangle_unprecise_numbers(a, b)
+print('Adding  --- a : ', a, ' b : ', b, ' c : ', c)
+
+c = minus_triangle_unprecise_numbers(a, b)
+print('Substracting  --- a : ', a, ' b : ', b, ' c : ', c)
+
+c = multiply_triangle_unprecise_numbers(a, b)
+print('Multiplication  --- a : ', a, ' b : ', b, ' c : ', c)
+
+c = division_triangle_unprecise_numbers(a, b)
+print('Dividing  --- a : ', a, ' b : ', b, ' c : ', c)
+
+a = [V - T - 2, V, V + 0.5, V + T + 2]
+b = [2 * V - T - 1, 2 * V, 2 * V + 1, 2 * V + 3]
+
+print('________________________________________________')
+c = add_trapeze_unprecise_numbers(a, b)
+print('Adding  --- a : ', a, ' b : ', b, ' c : ', c)
+
+c = substract_trapeze_unprecise_numbers(a, b)
+print('Substracting  --- a : ', a, ' b : ', b, ' c : ', c)
+
+c = multiply_trapeze_unprecise_numbers(a, b)
+print('Multiplication  --- a : ', a, ' b : ', b, ' c : ', c)
+
+c = division_trapeze_unprecise_numbers(a, b)
+print('Dividing  --- a : ', a, ' b : ', b, ' c : ', c)
