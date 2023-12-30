@@ -33,14 +33,14 @@ def plot_graphic():
 def fuzzy_rules_and_system_create():
     FS = FuzzySystem()
 
-    FS.add_linguistic_variable("argument_var", LinguisticVariable([FuzzySet(function=Triangular_MF(a=7, b=9, c=13),    term="low"),
+    FS.add_linguistic_variable("argument_var", LinguisticVariable([FuzzySet(function=Triangular_MF(a=8, b=9, c=13),    term="low"),
                                                             FuzzySet(function=Triangular_MF(a=10, b=12, c=14),  term="medium"),
-                                                            FuzzySet(function=Triangular_MF(a=13, b=16, c=19), term="high")], concept="First arg",
+                                                            FuzzySet(function=Triangular_MF(a=13, b=16, c=18), term="high")], concept="First arg",
                                                             universe_of_discourse=[8, 18]))
 
-    FS.add_linguistic_variable("ordinat_var", LinguisticVariable([FuzzySet(function=Triangular_MF(a=2, b=4, c=5), term="low"),
+    FS.add_linguistic_variable("ordinat_var", LinguisticVariable([FuzzySet(function=Triangular_MF(a=3, b=4, c=5), term="low"),
                                                               FuzzySet(function=Triangular_MF(a=4, b=5, c=6), term="medium"),
-                                                              FuzzySet(function=Triangular_MF(a=5, b=7, c=9), term="high")], concept="Second arg",
+                                                              FuzzySet(function=Triangular_MF(a=5, b=7, c=8), term="high")], concept="Second arg",
                                                               universe_of_discourse=[3, 8]))
 
     FS.add_linguistic_variable("result_var", LinguisticVariable([FuzzySet(function=Triangular_MF(a=0.13823, b=0.5, c=1.0), term="low"),
@@ -75,12 +75,13 @@ def use_fuzzy_system(FS, x, y):
 FS = fuzzy_rules_and_system_create()
 result_fuzzy_var = use_fuzzy_system(FS, 8, 3)
 
-x = 8
-y = 3
-for i in range(10):
-    for j in range(10):
-        delta = use_fuzzy_system(FS, x, y) * 100000 - function(x, y)
-        print('Delta : ', delta)
-        y = y + 0.1
-    x = x + 0.1
-print('result : ', result_fuzzy_var)
+x = 8.1
+y = 3.1
+
+while x < 18:
+    while y < 8:
+        fuzzy_var = use_fuzzy_system(FS, x, y) * 1000000
+        delta = fuzzy_var - function(x, y)
+        print('fuzzy_var: ', fuzzy_var, ' delta: ', delta)
+        y = y + 0.5
+    x = x + 0.5
