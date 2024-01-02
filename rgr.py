@@ -33,37 +33,53 @@ def plot_graphic():
 def fuzzy_rules_and_system_create():
     FS = FuzzySystem()
 
-    FS.add_linguistic_variable("x", LinguisticVariable([FuzzySet(function=Triangular_MF(a=8, b=9, c=10.8), term="very low"),
-                                                        FuzzySet(function=Triangular_MF(a=4.2, b=5, c=5.4),term="low"),
-                                                        FuzzySet(function=Triangular_MF(a=4.2, b=5, c=5.4), term="medium"),
-                                                        FuzzySet(function=Triangular_MF(a=5.3, b=7, c=6.7), term="large"),
-                                                        FuzzySet(function=Triangular_MF(a=6.6, b=7.6, c=8), term="very large")], concept="First arg",
+    FS.add_linguistic_variable("x", LinguisticVariable([FuzzySet(function=Triangular_MF(a=8.0, b=9.0, c=10.8), term="very_low"),
+                                                        FuzzySet(function=Triangular_MF(a=10.75, b=11.4, c=12.2),term="low"),
+                                                        FuzzySet(function=Triangular_MF(a=11.7, b=12.0, c=12.7), term="average"),
+                                                        FuzzySet(function=Triangular_MF(a=12.5, b=14.3, c=15.8), term="large"),
+                                                        FuzzySet(function=Triangular_MF(a=15.3, b=17.9, c=18), term="very_large")], concept="First arg",
                                                             universe_of_discourse=[8, 18]))
 
-    FS.add_linguistic_variable("y", LinguisticVariable([FuzzySet(function=Triangular_MF(a=3, b=4, c=4.5), term="very low"),
-                                                        FuzzySet(function=Triangular_MF(a=4.2, b=5, c=5.4),term="low"),
-                                                        FuzzySet(function=Triangular_MF(a=4.2, b=5, c=5.4), term="medium"),
-                                                        FuzzySet(function=Triangular_MF(a=5.3, b=7, c=6.7), term="large"),
-                                                        FuzzySet(function=Triangular_MF(a=6.6, b=7.6, c=8), term="very large")], concept="Second arg",
+    FS.add_linguistic_variable("y", LinguisticVariable([FuzzySet(function=Triangular_MF(a=3.0, b=4.0, c=4.5), term="very_low"),
+                                                        FuzzySet(function=Triangular_MF(a=3.5, b=5.0, c=5.4),term="low"),
+                                                        FuzzySet(function=Triangular_MF(a=4.2, b=5.0, c=5.4), term="average"),
+                                                        FuzzySet(function=Triangular_MF(a=5.3, b=6.2, c=6.7), term="large"),
+                                                        FuzzySet(function=Triangular_MF(a=6.6, b=7.6, c=8), term="very_large")], concept="Second arg",
                                                         universe_of_discourse=[3, 8]))
 
-    FS.add_linguistic_variable("z", LinguisticVariable([FuzzySet(function=Triangular_MF(a=0.13823, b=0.5, c=0.7), term="very low"),
+    FS.add_linguistic_variable("z", LinguisticVariable([FuzzySet(function=Triangular_MF(a=0.13823, b=0.5, c=0.7), term="very_low"),
                                                       FuzzySet(function=Triangular_MF(a=0.6, b=1.0, c=1.2), term="low"),
                                                       FuzzySet(function=Triangular_MF(a=1.1, b=1.2, c=1.6), term="average"),
                                                       FuzzySet(function=Triangular_MF(a=1.5, b=2.0, c=2.2),term="large"),
-                                                      FuzzySet(function=Triangular_MF(a=2.0, b=2.8, c=3.0),term="very large")], concept = "Third arg",
+                                                      FuzzySet(function=Triangular_MF(a=2.0, b=2.8, c=3.0),term="very_large")], concept = "Third arg",
                                                       universe_of_discourse=[0.13824, 2.985984]))
 
     RULES = [
+        "IF (x IS very_low) AND (y IS very_low) THEN (z IS very_low)",
+        "IF (x IS very_low) AND (y IS low) THEN (z IS very_low)",
+        "IF (x IS very_low) AND (y IS average) THEN (z IS low)",
+        "IF (x IS very_low) AND (y IS large) THEN (z IS average)",
+        "IF (x IS very_low) AND (y IS very_large) THEN (z IS large)",
+        "IF (x IS low) AND (y IS very_low) THEN (z IS very_low)",
         "IF (x IS low) AND (y IS low) THEN (z IS low)",
-        "IF (x IS low) AND (y IS medium) THEN (z IS high)",
-        "IF (x IS low) AND (y IS high) THEN (z IS high)",
-        "IF (x IS medium) AND (y IS low) THEN (z IS medium)",
-        "IF (x IS medium) AND (y IS medium) THEN (z IS high)",
-        "IF (x IS medium) AND (y IS high) THEN (z IS high)",
-        "IF (x IS high) AND (y IS low) THEN (z IS medium)",
-        "IF (x IS high) AND (y IS medium) THEN (z IS medium)",
-        "IF (x IS high) AND (y IS high) THEN (z IS high)"
+        "IF (x IS low) AND (y IS average) THEN (z IS low)",
+        "IF (x IS low) AND (y IS large) THEN (z IS low)",
+        "IF (x IS low) AND (y IS very_large) THEN (z IS medium)",
+        "IF (x IS average) AND (y IS very_low) THEN (z IS very_low)",
+        "IF (x IS average) AND (y IS low) THEN (z IS very_low)",
+        "IF (x IS average) AND (y IS average) THEN (z IS low)",
+        "IF (x IS average) AND (y IS large) THEN (z IS low)",
+        "IF (x IS average) AND (y IS very_large) THEN (z IS medium)",
+        "IF (x IS large) AND (y IS very_low) THEN (z IS very_low)",
+        "IF (x IS large) AND (y IS low) THEN (z IS very_low)",
+        "IF (x IS large) AND (y IS average) THEN (z IS low)",
+        "IF (x IS large) AND (y IS large) THEN (z IS low)",
+        "IF (x IS large) AND (y IS very_large) THEN (z IS medium)",
+        "IF (x IS very_large) AND (y IS very_low) THEN (z IS very_low)",
+        "IF (x IS very_large) AND (y IS low) THEN (z IS very_low)",
+        "IF (x IS very_large) AND (y IS average) THEN (z IS low)",
+        "IF (x IS very_large) AND (y IS large) THEN (z IS low)",
+        "IF (x IS very_large) AND (y IS very_large) THEN (z IS very_large)"
     ]
 
     FS.add_rules(RULES)
@@ -71,12 +87,12 @@ def fuzzy_rules_and_system_create():
     return FS
 
 def use_fuzzy_system(FS, x, y):
-    FS.set_variable("argument_var", x)
-    FS.set_variable("ordinat_var", y)
-    results = FS.Mamdani_inference(["result_var"])
-    return results['result_var']
+    FS.set_variable("x", x)
+    FS.set_variable("y", y)
+    results = FS.Mamdani_inference(["z"])
+    return results['z']
 
-plot_graphic()
+#plot_graphic()
 
 
 FS = fuzzy_rules_and_system_create()
@@ -85,11 +101,13 @@ result_fuzzy_var = use_fuzzy_system(FS, 8, 3)
 x = 8.1
 y = 3.1
 
-while x < 18:
+while x < 10.9:
     while y < 8:
 #        fuzzy_var = use_fuzzy_system(FS, x, y) * 1000000
 #        delta = fuzzy_var - function(x, y)
         func_value = function(x, y)
-        print('x ')
+        fuzzy_var = use_fuzzy_system(FS, x, y) * 1000000
+        delta = math.fabs(fuzzy_var - func_value)
+        print('x : ', x, 'y : ', y, 'fuzzy_var : ', fuzzy_var, ' function : ', func_value, ' delta : ', delta)
         y = y + 0.1
     x = x + 0.5
