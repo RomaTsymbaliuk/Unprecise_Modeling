@@ -40,14 +40,14 @@ def fuzzy_rules_and_system_create():
                                                         FuzzySet(function=Crisp_MF(a=15.3, b=18), term="very_large")], concept="First arg",
                                                             universe_of_discourse=[8, 18]))
 
-    FS.add_linguistic_variable("y", LinguisticVariable([FuzzySet(function=Gaussian_MF(mu=3.105, sigma=0.2), term="very_low"),
+    FS.add_linguistic_variable("y", LinguisticVariable([FuzzySet(function=InvGaussian_MF(mu=3.3, sigma=0.1), term="very_low"),
                                                         FuzzySet(function=Triangular_MF(a=3.2, b=5.0, c=5.4),term="low"),
                                                         FuzzySet(function=Triangular_MF(a=4.2, b=5.0, c=5.4), term="average"),
                                                         FuzzySet(function=Triangular_MF(a=5.3, b=6.2, c=6.7), term="large"),
                                                         FuzzySet(function=Triangular_MF(a=6.6, b=7.6, c=8), term="very_large")], concept="Second arg",
                                                         universe_of_discourse=[3, 8]))
 
-    FS.add_linguistic_variable("z", LinguisticVariable([FuzzySet(function=Triangular_MF(a=0.13823, b=0.15832, c=0.17854), term="very_low"),
+    FS.add_linguistic_variable("z", LinguisticVariable([FuzzySet(function=Triangular_MF(a=0.12342, b=0.16544), term="very_low"),
                                                       FuzzySet(function=Triangular_MF(a=0.17414, b=0.23421, c=0.65423), term="low"),
                                                       FuzzySet(function=Triangular_MF(a=1.1, b=1.2, c=1.6), term="average"),
                                                       FuzzySet(function=Triangular_MF(a=1.5, b=2.0, c=2.2),term="large"),
@@ -101,10 +101,11 @@ result_fuzzy_var = use_fuzzy_system(FS, 8, 3)
 x = 8.1
 y = 3.1
 delta_sum = 0
-steps = 1
+steps_x = 1
+steps_y = 1
 
-while x < 10.9 and steps <= 50:
-    while y < 8:
+while x < 10.9 and steps_x <= 50:
+    while y < 8 and steps_y <= 3:
 #        fuzzy_var = use_fuzzy_system(FS, x, y) * 1000000
         func_value = function(x, y)
         fuzzy_var = use_fuzzy_system(FS, x, y) * 100000
@@ -113,7 +114,8 @@ while x < 10.9 and steps <= 50:
         delta = math.fabs(fuzzy_var - func_value)
         delta_sum = delta_sum + delta
         y = y + 0.1
-    steps = steps + 1
+        steps_y = steps_y + 1
+    steps_x = steps_x + 1
     x = x + 0.1
 
 print('delta_sum : ', delta_sum / 1000000)
