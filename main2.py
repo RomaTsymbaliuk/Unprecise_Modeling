@@ -2,6 +2,8 @@ from simpful import *
 
 # Ok temperature : 22 Celcius
 
+temperature_range = [0.1, 10.0]
+humidity_range = [1, 100]
 def fuzzy_rules_and_system_create():
     FS = FuzzySystem()
 
@@ -24,13 +26,13 @@ def fuzzy_rules_and_system_create():
     RULES = [
         "IF (temperature_delta IS low) AND (humidity IS low) THEN (heating_on IS average)",
         "IF (temperature_delta IS low) AND (humidity IS average) THEN (heating_on IS low)",
-        "IF (temperature_delta IS low) AND (humidity IS high) THEN (heating_on IS low)",
+        "IF (temperature_delta IS low) AND (humidity IS large) THEN (heating_on IS low)",
         "IF (temperature_delta IS average) AND (humidity IS low) THEN (heating_on IS average)",
         "IF (temperature_delta IS average) AND (humidity IS average) THEN (heating_on IS low)",
-        "IF (temperature_delta IS average) AND (humidity IS high) THEN (heating_on IS low)",
+        "IF (temperature_delta IS average) AND (humidity IS large) THEN (heating_on IS low)",
         "IF (temperature_delta IS large) AND (humidity IS low) THEN (heating_on IS large)",
         "IF (temperature_delta IS large) AND (humidity IS average) THEN (heating_on IS large)",
-        "IF (temperature_delta IS large) AND (humidity IS high) THEN (heating_on IS average)",
+        "IF (temperature_delta IS large) AND (humidity IS large) THEN (heating_on IS average)",
     ]
 
     FS.add_rules(RULES)
@@ -45,3 +47,9 @@ def use_fuzzy_system(FS, x, y):
 
 FS = fuzzy_rules_and_system_create()
 
+for j in range(10):
+    humidity_var = humidity_range[0] + j * 10
+    for i in range(10):
+        temp_var = temperature_range[0] + i * 0.5
+        result = use_fuzzy_system(FS, temp_var, humidity_var)
+        print('Temperature : ', temp_var, ' Humidity : ', humidity_var, ' result : ', result)
