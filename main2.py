@@ -19,7 +19,7 @@ def fuzzy_rules_and_system_create():
 
     FS.add_linguistic_variable("heating_on", LinguisticVariable([FuzzySet(function=Triangular_MF(a=1.0, b=1.2, c=1.5), term="low"),
                                                       FuzzySet(function=Triangular_MF(a=1.3, b=2.0, c=5.0), term="average"),
-                                                      FuzzySet(function=Triangular_MF(a=4.0, b=7.0, c=10.0),term="large")], concept = "Third arg",
+                                                      FuzzySet(function=Triangular_MF(a=4.0, b=7.0, c=10.0), term="large")], concept = "Third arg",
                                                       universe_of_discourse=[1.0, 10.0]))
 
 
@@ -32,7 +32,7 @@ def fuzzy_rules_and_system_create():
         "IF (temperature_delta IS average) AND (humidity IS large) THEN (heating_on IS low)",
         "IF (temperature_delta IS large) AND (humidity IS low) THEN (heating_on IS large)",
         "IF (temperature_delta IS large) AND (humidity IS average) THEN (heating_on IS large)",
-        "IF (temperature_delta IS large) AND (humidity IS large) THEN (heating_on IS average)",
+        "IF (temperature_delta IS large) AND (humidity IS large) THEN (heating_on IS average)"
     ]
 
     FS.add_rules(RULES)
@@ -46,10 +46,12 @@ def use_fuzzy_system(FS, x, y):
     return results['heating_on']
 
 FS = fuzzy_rules_and_system_create()
-
+FS.plot_surface(variables=["temperature_delta", "humidity"], output="heating_on")
+'''
 for j in range(10):
     humidity_var = humidity_range[0] + j * 10
     for i in range(10):
         temp_var = temperature_range[0] + i * 0.5
         result = use_fuzzy_system(FS, temp_var, humidity_var)
         print('Temperature : ', temp_var, ' Humidity : ', humidity_var, ' result : ', result)
+'''

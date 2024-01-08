@@ -116,3 +116,11 @@ Temperature :  4.6  Humidity :  91  result :  2.86417508425535
 
 Process finished with exit code 0
 ```
+Temperature delta linguistic variable plot:
+![](images/Figure_1.png)
+
+Humidity linguistic variable plot:
+![](images/Figure_2.png)
+
+Heating_on linguistic variable plot:
+![](images/Figure_3.png)
