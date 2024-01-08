@@ -15,7 +15,7 @@ def fuzzy_rules_and_system_create():
     FS.add_linguistic_variable("humidity", LinguisticVariable([FuzzySet(function=Triangular_MF(a=0.0, b=10.0, c=25.0),term="low"),
                                                         FuzzySet(function=Triangular_MF(a=10.0, b=50.0, c=60.0), term="average"),
                                                         FuzzySet(function=Triangular_MF(a=55.0, b=75.0, c=100.0), term="large")], concept="Second arg",
-                                                        universe_of_discourse=[3, 8]))
+                                                        universe_of_discourse=[0, 100]))
 
     FS.add_linguistic_variable("heating_on", LinguisticVariable([FuzzySet(function=Triangular_MF(a=1.0, b=1.2, c=1.5), term="low"),
                                                       FuzzySet(function=Triangular_MF(a=1.3, b=2.0, c=5.0), term="average"),

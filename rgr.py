@@ -92,7 +92,7 @@ def use_fuzzy_system(FS, x, y):
     results = FS.Mamdani_inference(["z"])
     return results['z']
 
-#plot_graphic()
+plot_graphic()
 
 FS = fuzzy_rules_and_system_create()
 
